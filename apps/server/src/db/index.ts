@@ -1,13 +1,18 @@
-import { DatabaseSync, type SQLInputValue } from "node:sqlite";
+import type { DatabaseSync as DatabaseSyncType, SQLInputValue } from "node:sqlite";
+import { createRequire } from "node:module";
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { SCHEMA } from "./schema.js";
+
+// Loaded via require so bundlers/test runners that don't know the newer
+// `node:sqlite` builtin leave it alone.
+const { DatabaseSync } = createRequire(import.meta.url)("node:sqlite") as typeof import("node:sqlite");
 
 type Row = Record<string, unknown>;
 
 /** Thin typed wrapper over node:sqlite with JSON column helpers. */
 export class Db {
-  readonly raw: DatabaseSync;
+  readonly raw: DatabaseSyncType;
 
   constructor(path: string) {
     if (path !== ":memory:") mkdirSync(dirname(path), { recursive: true });

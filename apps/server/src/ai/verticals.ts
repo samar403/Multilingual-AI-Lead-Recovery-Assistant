@@ -135,7 +135,7 @@ export const PLAYBOOKS: Record<Vertical, Playbook> = {
           gu_latn: "Tame kharidva mango cho ke bhade leva?",
         },
         choices: {
-          Buy: ["buy", "purchase", "kharid", "khareed", "kharidvu", "ख़रीद", "खरीद", "ખરીદ", "invest"],
+          Buy: ["buy", "purchase", "kharid", "khareed", "khareedna", "kharidvu", "ख़रीद", "खरीद", "ખરીદ", "invest"],
           Rent: ["rent", "kiraya", "kiraye", "bhade", "bhadu", "किराय", "किराए", "ભાડ", "lease"],
         },
       },

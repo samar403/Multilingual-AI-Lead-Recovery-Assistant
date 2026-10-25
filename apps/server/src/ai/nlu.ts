@@ -13,11 +13,17 @@ export function normalize(text: string): string {
 
 const isLatin = (kw: string) => /^[a-z0-9 .\-]+$/.test(kw);
 
-/** Latin keywords match on word boundaries; Indic keywords match as substrings (they inflect). */
+/**
+ * Latin keywords match on word boundaries — longer ones as prefixes, since
+ * romanised Hindi/Gujarati inflects ("kharid" → "kharidvu", "khareedna").
+ * Indic keywords match as substrings for the same reason.
+ */
 export function hasKeyword(text: string, keywords: string[]): boolean {
   return keywords.some((kw) => {
-    if (isLatin(kw)) return new RegExp(`(^|[^a-z0-9])${kw.replace(/[.\-]/g, "\\$&")}([^a-z0-9]|$)`).test(text);
-    return text.includes(kw);
+    if (!isLatin(kw)) return text.includes(kw);
+    const escaped = kw.replace(/[.\-]/g, "\\$&");
+    const tail = kw.length >= 5 ? "" : "([^a-z0-9]|$)";
+    return new RegExp(`(^|[^a-z0-9])${escaped}${tail}`).test(text);
   });
 }
 
