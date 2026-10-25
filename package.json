@@ -1,0 +1,16 @@
+{
+  "name": "vaani-lead-recovery",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Vaani — multilingual (Gujarati, Hindi, English) AI lead-recovery assistant for Indian SMBs",
+  "workspaces": ["apps/server", "apps/web"],
+  "scripts": {
+    "dev": "npm run dev --workspace apps/server & npm run dev --workspace apps/web",
+    "build": "npm run build --workspace apps/web && npm run build --workspace apps/server",
+    "start": "npm run start --workspace apps/server",
+    "test": "npm run test --workspace apps/server",
+    "typecheck": "npm run typecheck --workspace apps/server && npm run typecheck --workspace apps/web",
+    "seed": "npm run seed --workspace apps/server"
+  },
+  "engines": { "node": ">=22.13" }
+}
